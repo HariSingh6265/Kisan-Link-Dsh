@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Fresh - KisanConnect</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">🌾 KisanConnect</a>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <!-- Navigation Button to Price Comparison Page -->
+<button class="price-comparison-trigger" onclick="navigateToComparison()">
+    <div class="trigger-content">
+        <span class="pulse-icon"></span>
+        <div class="text-group">
+            <span class="trigger-label">Price Insight</span>
+            <span class="trigger-sub">Save ~15% today</span>
+        </div>
+    </div>
+    <i class="arrow-right">→</i>
+</button>
+
+<style>
+.price-comparison-trigger {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1.5px solid #2e7d32;
+    padding: 5px 12px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.price-comparison-trigger:hover {
+    background: #f1f8e9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.trigger-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pulse-icon {
+    width: 8px;
+    height: 8px;
+    background: #2e7d32;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.text-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.trigger-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+.trigger-sub {
+    font-size: 9px;
+    color: #666;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+}
+</style>
+
+<script>
+function navigateToComparison() {
+    // Replace 'price-details.html' with your actual route or filename
+    window.location.href = 'price-details.html';
+}
+</script>
+
+<style>
+    /* Farmer Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+    }
+
+    .farmer-modal {
+        background: white;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header-img {
+        height: 150px;
+        background: var(--accent);
+        position: relative;
+    }
+
+    .modal-profile-pic {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 4px solid white;
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        object-fit: cover;
+        background: white;
+    }
+
+    .modal-body {
+        padding: 60px 25px 25px;
+        text-align: center;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-weight: bold;
+        color: #333;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        background: #f1f8e9;
+        color: #2e7d32;
+        margin: 5px;
+        font-weight: 600;
+    }
+
+    .farmer-stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+        padding: 15px 0;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-value {
+        display: block;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: var(--accent);
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+        color: #777;
+    }
+</style>
+                <button id="translate-btn" class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem;">Hindi/हिंदी</button>
+                <a href="cart.html" class="cart-icon">🛒 <span class="cart-count">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="search-input" class="form-control" placeholder="🔍 Search fresh crops..." style="box-shadow: var(--shadow);">
+    </div>
+
+    <div class="filter-scroll">
+        <button class="filter-btn active" data-category="All">All</button>
+        <button class="filter-btn" data-category="Vegetables">Vegetables 🥦</button>
+        <button class="filter-btn" data-category="Fruits">Fruits 🍎</button>
+        <button class="filter-btn" data-category="Grains">Grains 🌾</button>
+    </div>
+
+    <main>
+        <div class="container mt-1">
+            <div style="background: var(--accent); color: white; padding: 15px; border-radius: var(--radius); margin-bottom: 20px; text-align: center;">
+                <h3 data-hi="सीजन की ताज़ा फसलें" data-en="Seasonal Fresh Picks">Seasonal Fresh Picks 🍓</h3>
+                <p style="font-size: 0.8rem;" data-hi="सीधे खेत से आपके घर तक" data-en="Direct from farm to your kitchen">Direct from farm to your kitchen</p>
+            </div>
+
+            <h3 class="mb-1" data-hi="सभी उत्पाद" data-en="All Products">All Products</h3>
+            <div id="products-grid" class="products-grid">
+                <!-- Products will be injected here -->
+            </div>
+        </div>
+
+        <section class="container mt-2 mb-2">
+            <h3 class="mb-1" data-hi="अपने किसान को जानें" data-en="Know Your Farmer">Know Your Farmer 🧑🌾</h3>
+            <div id="farmers-list" class="filter-scroll" style="padding: 0;">
+                <!-- Farmers will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Farmer Detail Modal -->
+    <div id="farmer-modal-overlay" class="modal-overlay">
+        <div class="farmer-modal">
+            <span class="modal-close" onclick="closeFarmerModal()">&times;</span>
+            <div class="modal-header-img" id="modal-header-bg">
+                <img id="modal-farmer-img" src="" class="modal-profile-pic">
+            </div>
+            <div class="modal-body">
+                <h2 id="modal-farmer-name">Farmer Name</h2>
+                <p id="modal-farmer-location" style="color: #666; font-size: 0.9rem;">Village, State</p>
+                
+                <div class="farmer-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="modal-farmer-exp">10+</span>
+                        <span class="stat-label">Years Exp.</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">⭐ 4.9</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">Verified</span>
+                        <span class="stat-label">Status</span>
+                    </div>
+                </div>
+
+                <div style="text-align: left; margin-bottom: 15px;">
+                    <h4 style="font-size: 0.9rem; margin-bottom: 5px;">About</h4>
+                    <p id="modal-farmer-about" style="font-size: 0.85rem; color: #555; line-height: 1.4;"></p>
+                </div>
+
+                <div style="text-align: left;">
+                    <h4 style="font-size: 0.9rem; margin-bottom: 5px;">Specialties</h4>
+                    <div id="modal-farmer-specialties">
+                        <!-- Badges will be injected here -->
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-block mt-2" onclick="closeFarmerModal()">View Products</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="consumer-home.js"></script>
+</body>
+</html>

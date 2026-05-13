@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Insight - KisanConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --accent: #fbc02d;
+            --bg-gradient: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --shadow: 0 10px 30px rgba(46, 125, 50, 0.1);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 600;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary-dark), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-section p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .savings-banner {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .banner-item span {
+            display: block;
+        }
+
+        .banner-val {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .banner-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-group {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f5e9;
+        }
+
+        .category-icon {
+            font-size: 1.8rem;
+        }
+
+        .price-table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px 20px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        td:first-child {
+            border-left: 1px solid #f0f0f0;
+            border-radius: 12px 0 0 12px;
+            font-weight: 600;
+        }
+
+        td:last-child {
+            border-right: 1px solid #f0f0f0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .market-price {
+            color: #95a5a6;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+        }
+
+        .our-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .savings-badge {
+            background: #e8f5e9;
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 1px solid rgba(46, 125, 50, 0.1);
+        }
+
+        tr {
+            transition: transform 0.3s ease;
+        }
+
+        tr:hover {
+            transform: scale(1.01);
+        }
+
+        tr:hover td {
+            background: #fafafa;
+            border-color: var(--primary-light);
+        }
+
+        .footer-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .glass-card { padding: 20px; }
+            .hero-section h1 { font-size: 1.8rem; }
+            .savings-banner { flex-direction: column; gap: 20px; }
+            th { display: none; }
+            td { display: block; text-align: right; padding: 10px 20px; }
+            td:first-child { text-align: left; background: #f9f9f9; border-radius: 12px 12px 0 0; }
+            td:last-child { border-radius: 0 0 12px 12px; border-bottom: 2px solid #eee; }
+            td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                color: var(--text-muted);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-actions">
+        <a href="consumer-home.html" class="back-btn">← Back to Shop</a>
+    </div>
+
+    <div class="glass-card">
+        <header class="hero-section">
+            <h1>Price Insight Dashboard</h1>
+            <p>Real-time comparison of market prices vs. KisanConnect prices</p>
+        </header>
+
+        <div class="savings-banner">
+            <div class="banner-item">
+                <span class="banner-val">22%</span>
+                <span class="banner-label">Average Savings</span>
+            </div>
+            <div class="banner-item">
+                <span class="banner-val">₹4,200</span>
+                <span class="banner-label">Saved by Community Today</span>
+            </div>
+            <div class="banner-item">
+                <span class="banner-val">0</span>
+                <span class="banner-label">Middlemen Involved</span>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <h2 class="category-title"><span class="category-icon">🥦</span> Vegetables</h2>
+            <div class="price-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Market Price</th>
+                            <th>Avg Farmer Price</th>
+                            <th>Your Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Product">Organic Tomatoes</td>
+                            <td data-label="Market Price"><span class="market-price">₹55/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹40/kg</span></td>
+                            <td><span class="savings-badge">27% Saved</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">Spinach (Palak)</td>
+                            <td data-label="Market Price"><span class="market-price">₹30/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹20/kg</span></td>
+                            <td><span class="savings-badge">33% Saved</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">Potatoes (Agra)</td>
+                            <td data-label="Market Price"><span class="market-price">₹35/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹28/kg</span></td>
+                            <td><span class="savings-badge">20% Saved</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">Cauliflower</td>
+                            <td data-label="Market Price"><span class="market-price">₹60/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹45/kg</span></td>
+                            <td><span class="savings-badge">25% Saved</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <h2 class="category-title"><span class="category-icon">🍎</span> Fruits</h2>
+            <div class="price-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Market Price</th>
+                            <th>Avg Farmer Price</th>
+                            <th>Your Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Product">Kesar Mangoes</td>
+                            <td data-label="Market Price"><span class="market-price">₹160/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹120/kg</span></td>
+                            <td><span class="savings-badge">25% Saved</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">Nagpur Oranges</td>
+                            <td data-label="Market Price"><span class="market-price">₹90/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹75/kg</span></td>
+                            <td><span class="savings-badge">17% Saved</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">Banana (G9)</td>
+                            <td data-label="Market Price"><span class="market-price">₹50/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹40/kg</span></td>
+                            <td><span class="savings-badge">20% Saved</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <h2 class="category-title"><span class="category-icon">🌾</span> Grains</h2>
+            <div class="price-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Market Price</th>
+                            <th>Avg Farmer Price</th>
+                            <th>Your Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Product">Basmati Rice</td>
+                            <td data-label="Market Price"><span class="market-price">₹115/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹95/kg</span></td>
+                            <td><span class="savings-badge">17% Saved</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">Whole Wheat</td>
+                            <td data-label="Market Price"><span class="market-price">₹45/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹36/kg</span></td>
+                            <td><span class="savings-badge">20% Saved</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Product">Moong Dal</td>
+                            <td data-label="Market Price"><span class="market-price">₹130/kg</span></td>
+                            <td data-label="Our Price"><span class="our-price">₹110/kg</span></td>
+                            <td><span class="savings-badge">15% Saved</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <p class="footer-note">
+            * Market prices are sourced daily from Agmarknet & local Mandis. <br>
+            By eliminating middlemen, we ensure farmers get 20% more and you pay 20% less.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
